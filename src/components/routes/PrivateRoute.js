@@ -1,22 +1,23 @@
-import { Route, Navigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import AuthContext from '../../context/authentication/authContext';
+import { Outlet, Navigate } from 'react-router-dom';
+import {useEffect, useState } from 'react';
+import { useDispatch,useSelector  } from 'react-redux';
+import {authenticatedUser} from '../../context/authentication/authActions';
 
-const PrivateRoute = ({ element: Element, ...props }) => {
-    const authContext = useContext(AuthContext);
-    const { authenticated, authenticatedUser, loading } = authContext;
+const PrivateRoutes = () => {
+    const isAuthenticated = useSelector(state => state.authenticated);
+    const [isTrigger, setIsTrigger] = useState(false);
 
+    const dispatch = useDispatch();
     useEffect(() => {
-        authenticatedUser();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if( isAuthenticated && !isTrigger) {
+            setIsTrigger(true)
+            dispatch(authenticatedUser());
+        }
+    }, [isAuthenticated, dispatch, isTrigger]);
 
     return (
-        <Route
-        {...props}
-        element={authenticated && !loading ? <Element {...props} /> : <Navigate to="/" replace />}
-      />
-    );
+       !isAuthenticated ? <Navigate to= "/" /> : <Outlet/>
+    )
 }
 
-export default PrivateRoute;
+export default PrivateRoutes;

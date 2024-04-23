@@ -1,34 +1,42 @@
 
-import React, { useContext, useEffect } from 'react';
+import React, {useEffect, useState } from 'react';
 import Sidebar from '../layout/Sidebar';
 import Bar from '../layout/Bar';
-import AuthContext from '../../context/authentication/authContext';
+import Playlists from '../playlists/Playlist';
+import { useDispatch, useSelector } from 'react-redux';
+import { authenticatedUser } from "../../context/authentication/authActions";
+
 const Home = () => {
-
-
-    // Extraer la información de autenticación
-    const authContext = useContext(AuthContext);
-    const { authenticatedUser } = authContext;
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(state => state.authenticated);
+    const [isTrigger, setIsTrigger] = useState(false);
 
     useEffect(() => {
-        authenticatedUser();
-        // eslint-disable-next-line
-    }, []);
+        if (isAuthenticated && !isTrigger) {
+            setIsTrigger(true)
+            dispatch(authenticatedUser());
+        }
+    }, [isAuthenticated, dispatch, isTrigger]);
 
 
-    return ( 
+    return (
         <div className="contenedor-app">
-        <Sidebar />
+            <Sidebar />
 
-        <div className="seccion-principal">
-            <Bar />
+            <div className="seccion-principal">
+                <Bar />
 
-            <main>
-              
-            </main>
+                <main>
+                    {/* <FormTarea /> */}
+
+                    <div className="contenedor-tareas">
+                        {/*play list*/}
+                        <Playlists />
+                    </div>
+                </main>
+            </div>
         </div>
-    </div>
-     );
+    );
 }
- 
+
 export default Home;

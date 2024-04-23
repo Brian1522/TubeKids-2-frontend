@@ -1,30 +1,23 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch,useSelector  } from 'react-redux';
 import { Link,useNavigate  } from 'react-router-dom';
-//import AlertaContext from '../../context/alertas/alertaContext';
-import AuthContext from '../../context/authentication/authContext'
+import {logIn} from "../../context/authentication/authActions" ;
+
 
 const Login = (props) => {
-
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(state => state.authenticated);
+    const [isTrigger, setIsTrigger] = useState(false);
     // se define para nevegar en las rutas de la aplicacion
     const navigate = useNavigate();
     // extraer los valores del context
-  //  const alertaContext = useContext(AlertaContext);
-  //  const { alerta, mostrarAlerta } = alertaContext;
-
-    const authContext = useContext(AuthContext);
-    const { message, authenticated, logIn } = authContext;
-
       // En caso de que el password o usuario no exista
       useEffect(() => {
-        if(authenticated) {
+        if(isAuthenticated  && !isTrigger) {
+            setIsTrigger(true);
             navigate('/home');
         }
-        /*
-        if(message) {
-            mostrarAlerta(message.msg, message.categoria);
-        } */
-        // eslint-disable-next-line
-    }, [message, authenticated, props.history]);
+    }, [isAuthenticated,dispatch,navigate,isTrigger]);
 
     // State para iniciar sesión
     const [user, saveUser] = useState({
@@ -52,10 +45,8 @@ const Login = (props) => {
         }
 
         // Pasarlo al action
-        logIn({ email, password });
+        dispatch(logIn({ email, password }));
     }
-
-
 
     return ( 
         <div className="form-usuario">
@@ -96,8 +87,8 @@ const Login = (props) => {
                     </div>
                 </form>
 
-                <Link to={'/nueva-cuenta'} className="enlace-cuenta">
-                    Obtener Cuenta
+                <Link to={'/register'} className="enlace-cuenta">
+                    Registrar
                 </Link>
             </div>
         </div>

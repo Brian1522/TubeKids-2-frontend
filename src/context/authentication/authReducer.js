@@ -1,47 +1,77 @@
-import { 
-    SUCCESSFUL_REGISTRATION,
-    LOG_ERROR,
-    GET_USER,
-    LOGIN_SUCCESSFUL,
-    LOGIN_ERROR,
-    LOG_OUT
-} from '../../types';
+import { createSlice } from '@reduxjs/toolkit';
 
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: {
+    token: localStorage.getItem('token'),
+    authenticated: false,
+    user: null,
+    message: null,
+    loading: true,
+  },
+  reducers: {
 
-const reducer = (state, action) => {
-    switch(action.type) {
-        case SUCCESSFUL_REGISTRATION:
-        case LOGIN_SUCCESSFUL:
-            localStorage.setItem('token', action.payload.token);
-            return {
-                ...state,
-                authenticated: true,
-                message: null,
-                loading: false
-            }
-        case GET_USER: 
-            return {
-                ...state,
-                authenticated: true,
-                user: action.payload, 
-                loading: false
-            }
-        case LOG_OUT:
-        case LOGIN_ERROR:
-        case LOG_ERROR:
-            localStorage.removeItem('token');
-            return {
-                ...state,
-                token: null,
-                user: null,
-                authenticated: null,
-                message: action.payload, 
-                loading: false
-            }
-        
-        default:
-            return state;
+    successfullRegister: (state, action) => {
+        localStorage.setItem('token', action.payload.token);
+        state.authenticated = true;
+        state.message = null;
+        state.loading = false;
+     },
+     loginSuccessful: (state, action) => {
+      localStorage.setItem('token', action.payload.token);
+      state.authenticated = true;
+      state.message = null;
+      state.loading = false;
+    },
+    getUser: (state, action) => {
+      state.authenticated = true;
+      state.user = action.payload;
+      state.loading = false;
+    },
+    signOff: (state, action) => {
+      localStorage.removeItem('token');
+      state.token = null;
+      state.user = null;
+      state.authenticated = false;
+      state.message = action.payload;
+      state.loading = false;
+    },
+    loginError: (state, action) => {
+      localStorage.removeItem('token');
+      state.token = null;
+      state.user = null;
+      state.authenticated = false;
+      state.message = action.payload;
+      state.loading = false;
+    },
+    logError: (state, action) => {
+      localStorage.removeItem('token');
+      state.token = null;
+      state.user = null;
+      state.authenticated = false;
+      state.message = action.payload;
+      state.loading = false;
+    },
+
+    logOut: (state, action) => {
+      localStorage.removeItem('token');
+      state.token = null;
+      state.user = null;
+      state.authenticated = false;
+      state.message = action.payload;
+      state.loading = false;
     }
-}
+  },
+});
 
-export default reducer;
+export const {
+    successfullRegister,
+    loginSuccessful,
+    logError,
+    getUser,
+    signOff,
+    loginError,
+    logOut
+} = authSlice.actions;
+
+export default authSlice.reducer;

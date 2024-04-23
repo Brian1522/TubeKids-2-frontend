@@ -1,33 +1,35 @@
-import React, {useContext, useEffect} from 'react';
-import AuthContext from '../../context/authentication/authContext';
+import React, {useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { authenticatedUser, logOutAction } from "../../context/authentication/authActions";
 
 
 const Bar = () => {
 
     // Extraer la información de autenticación
-    const authContext = useContext(AuthContext);
-    const { user, authenticatedUser, logOut } = authContext;
-
+    const user = useSelector(state => state.user);
+    const isAuthenticated = useSelector(state => state.authenticated);
+    const dispatch = useDispatch();
+    const [isTrigger, setIsTrigger] = useState(false);
     useEffect(() => {
-        authenticatedUser();
-        // eslint-disable-next-line
-    }, []);
+        if(isAuthenticated  && !isTrigger) {
+            setIsTrigger(true)
+        dispatch(authenticatedUser());
+        }
+    }, [isAuthenticated, dispatch,isTrigger]);
 
 
 
-    return ( 
+    return (
         <header className="app-header">
-            {user ? <p className="nombre-usuario">Hola <span>{user.name} </span> </p> : null}
-            
-
+            {user && user.user ? <p className="nombre-usuario">{user.user.name} <span>{user.user.lastname} </span> </p> : null}
             <nav className="nav-principal">
-                <button 
+                <button
                     className="btn btn-blank cerrar-sesion"
-                    onClick={() => logOut() }
+                    onClick={() =>dispatch(logOutAction())}
                 >Cerrar Sesión</button>
             </nav>
         </header>
-     );
+    );
 }
- 
+
 export default Bar;

@@ -361,3 +361,44 @@ aside  {
   background-color: rgb(230, 78, 78);
   color: var(--blanco);
 }
+
+.menu-item {
+  margin-left: 10px; /* Ajusta este valor según tu preferencia para el espacio entre el icono y el texto */
+}
+
+.menu-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-list li {
+  margin-bottom: 10px;
+}
+
+.menu-item {
+  margin-left: 10px;
+  color: #333; /* Color de texto negro */
+  transition: color 0.3s ease; /* Efecto de transición suave al cambiar el color de texto */
+  cursor: pointer; /* Cambia el cursor al pasar sobre los elementos del menú */
+}
+
+.menu-list li:hover {
+  background-color: #f0f0f0; /* Cambia el color de fondo del elemento li al pasar el cursor sobre él */
+  color:  var(--gris2); /* Cambia el color del texto a azul al pasar el cursor sobre él */
+}
+
+
+/* Estilos CSS para el componente Layout */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ajusta la altura del layout según sea necesario */
+}
+
+.content {
+  display: flex;
+}
+
+main {
+  flex-grow: 1;
+}
