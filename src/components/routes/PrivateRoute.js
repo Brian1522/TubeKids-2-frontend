@@ -1,10 +1,10 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import {useEffect, useState } from 'react';
 import { useDispatch,useSelector  } from 'react-redux';
-import {authenticatedUser} from '../../context/authentication/authActions';
+import {authenticatedUser} from '../../redux/authentication/authActions';
 
 const PrivateRoutes = () => {
-    const isAuthenticated = useSelector(state => state.authenticated);
+    const isAuthenticated = useSelector((state) => state.authentication.authenticated);
     const [isTrigger, setIsTrigger] = useState(false);
 
     const dispatch = useDispatch();
@@ -15,9 +15,8 @@ const PrivateRoutes = () => {
         }
     }, [isAuthenticated, dispatch, isTrigger]);
 
-    return (
-       !isAuthenticated ? <Navigate to= "/" /> : <Outlet/>
-    )
+    return  !isAuthenticated ? <Navigate to= "/" /> : <Outlet/>
+    
 }
 
 export default PrivateRoutes;

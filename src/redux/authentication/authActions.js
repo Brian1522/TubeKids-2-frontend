@@ -1,5 +1,4 @@
 // authActions.js
-
 import { loginSuccessful, loginError,getUser,successfullRegister,logError,logOut } from './authReducer';
 import clientAxios from '../../config/axios';
 import tokenAuth from '../../config/token';

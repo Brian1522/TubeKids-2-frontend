@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch,useSelector  } from 'react-redux';
-import { Link,useNavigate  } from 'react-router-dom';
-import {logIn} from "../../context/authentication/authActions" ;
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { logIn } from "../../redux/authentication/authActions";
 
 
 const Login = (props) => {
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector(state => state.authenticated);
+    const isAuthenticated = useSelector((state) => state.authentication.authenticated);
     const [isTrigger, setIsTrigger] = useState(false);
     // se define para nevegar en las rutas de la aplicacion
     const navigate = useNavigate();
-    // extraer los valores del context
-      // En caso de que el password o usuario no exista
-      useEffect(() => {
-        if(isAuthenticated  && !isTrigger) {
+    // En caso de que el password o usuario no exista
+    useEffect(() => {
+        if (isAuthenticated && !isTrigger) {
             setIsTrigger(true);
             navigate('/home');
         }
-    }, [isAuthenticated,dispatch,navigate,isTrigger]);
+    }, [isAuthenticated, navigate, isTrigger]);
 
     // State para iniciar sesión
     const [user, saveUser] = useState({
@@ -28,39 +27,36 @@ const Login = (props) => {
     // extraer de usuario
     const { email, password } = user;
 
-    const onChange = e => {
+    const onChange = (e) => {
         saveUser({
             ...user,
-            [e.target.name] : e.target.value
-        })
-    }
+            [e.target.name]: e.target.value
+        });
+    };
 
     // Cuando el usuario quiere iniciar sesión
-    const onSubmit = e => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
         // Validar que no haya campos vacios
-        if(email.trim() === '' || password.trim() === '') {
-         //   mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+        if (email.trim() === '' || password.trim() === '') {
+            //   mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
         }
 
         // Pasarlo al action
         dispatch(logIn({ email, password }));
     }
 
-    return ( 
+    return (
         <div className="form-usuario">
-          
-
             <div className="contenedor-form sombra-dark">
                 <h1>Iniciar Sesión</h1>
 
                 <form
-                    onSubmit={onSubmit}
-                >
+                    onSubmit={onSubmit}>
                     <div className="campo-form">
                         <label htmlFor="email">Email</label>
-                        <input 
+                        <input
                             type="email"
                             id="email"
                             name="email"
@@ -72,7 +68,7 @@ const Login = (props) => {
 
                     <div className="campo-form">
                         <label htmlFor="password">Password</label>
-                        <input 
+                        <input
                             type="password"
                             id="password"
                             name="password"
@@ -83,7 +79,11 @@ const Login = (props) => {
                     </div>
 
                     <div className="campo-form">
-                        <input type="submit" className="btn btn-primario btn-block" value="Iniciar Sesión" />
+                        <input
+                            type="submit"
+                            className="btn btn-primario btn-block"
+                            value="Iniciar Sesión" 
+                            />
                     </div>
                 </form>
 
@@ -92,7 +92,7 @@ const Login = (props) => {
                 </Link>
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default Login;

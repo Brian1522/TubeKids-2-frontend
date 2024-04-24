@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-//import AlertaContext from '../../context/alertas/alertaContext';
-//import AuthContext from '../../context/autenticacion/authContext';
-import { registerUser } from "../../context/authentication/authActions";
+
+import { registerUser } from "../../redux/authentication/authActions";
 
 
 const Register = (props) => {
@@ -13,7 +12,6 @@ const Register = (props) => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector(state => state.authenticated);
 
-
     const [isTrigger, setIsTrigger] = useState(false);
     // En caso de que el password o usuario no exista
     useEffect(() => {
@@ -22,12 +20,7 @@ const Register = (props) => {
             setIsTrigger(true);
             navigate('/home');
         }
-        /*
-        if(message) {
-            mostrarAlerta(message.msg, message.categoria);
-        } */
-        // eslint-disable-next-line
-    }, [isAuthenticated, isTrigger]);
+    }, [isAuthenticated, navigate, isTrigger]);
 
     // State para iniciar sesión
     const [user, saveUser] = useState({
@@ -49,11 +42,11 @@ const Register = (props) => {
         saveUser({
             ...user,
             [e.target.name]: e.target.value
-        })
-    }
+        });
+    };
 
     // Cuando el usuario quiere iniciar sesión
-    const onSubmit = e => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
         // Validar que no haya campos vacios
@@ -78,17 +71,6 @@ const Register = (props) => {
             return;
         }
 
-        // Los 2 passwords son iguales
-        /*
-        if(password !== confirm) {
-            //mostrarAlerta('Los passwords no son iguales', 'alerta-error');
-            console.log("Los passwords no son iguales");
-            return;
-        }
-        */
-        // Pasarlo al action
-
-
         dispatch(registerUser({
             name,
             lastname,
@@ -98,8 +80,9 @@ const Register = (props) => {
             role,
             country,
             pin
-        }));
-    }
+        })
+        );
+    };
 
     return (
         <div className="form-usuario">
@@ -107,9 +90,7 @@ const Register = (props) => {
             <div className="contenedor-form sombra-dark">
                 <h1>Crear una cuenta</h1>
 
-                <form
-                    onSubmit={onSubmit}
-                >
+                <form onSubmit={onSubmit}>
                     <div className="campo-form">
                         <label htmlFor="name">Nombre</label>
                         <input
@@ -220,7 +201,10 @@ const Register = (props) => {
                     </div> */}
 
                     <div className="campo-form">
-                        <input type="submit" className="btn btn-primario btn-block" value="Registrarme" />
+                        <input
+                            type="submit"
+                            className="btn btn-primario btn-block"
+                            value="Registrarme" />
                     </div>
                 </form>
 

@@ -1,14 +1,13 @@
-
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../layout/Sidebar';
 import Bar from '../layout/Bar';
 import Playlists from '../playlists/Playlist';
 import { useDispatch, useSelector } from 'react-redux';
-import { authenticatedUser } from "../../context/authentication/authActions";
+import { authenticatedUser } from "../../redux/authentication/authActions";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector(state => state.authenticated);
+    const isAuthenticated = useSelector((state) => state.authentication.authenticated);
     const [isTrigger, setIsTrigger] = useState(false);
 
     useEffect(() => {
@@ -17,7 +16,6 @@ const Home = () => {
             dispatch(authenticatedUser());
         }
     }, [isAuthenticated, dispatch, isTrigger]);
-
 
     return (
         <div className="contenedor-app">
