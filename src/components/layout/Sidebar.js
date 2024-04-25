@@ -13,10 +13,14 @@ const Sidebar = () => {
     const handleNavigateToHome = () => {
         navigate('/home'); // Navega a la ruta '/home' al hacer clic en el elemento de Home
     };
+    // Función para redireccionar a la pantalla de inicio (home)
+    const handleNavigateToUsers = () => {
+        navigate('/users'); // Navega a la ruta '/users' al hacer clic en el elemento de usuarios
+    };
 
     return (
         <aside>
-            <h1>Play<span>app</span></h1>
+            <h1>Tubekits<span>app</span></h1>
             <div className="proyectos">
                 <div className="menu-list">
                     <ul>
@@ -24,9 +28,15 @@ const Sidebar = () => {
                             <i className="fas fa-home" onClick={handleNavigateToHome}></i> {/* Agrega onClick para navegar */}
                             <span className="menu-item" onClick={handleNavigateToHome}>Playlists</span>{/* Agrega onClick para navegar */}
                         </li>
+
                         <li>
                             <i className="fas fa-video" onClick={handleNavigateToVideos}></i> {/* Agrega onClick para navegar */}
                             <span className="menu-item" onClick={handleNavigateToVideos}>Videos</span>{/* Agrega onClick para navegar */}
+                        </li>
+
+                        <li>
+                            <i className="fas fa-user" onClick={handleNavigateToUsers}></i> {/* Agrega onClick para navegar */}
+                            <span className="menu-item" onClick={handleNavigateToUsers}>Usuarios</span>{/* Agrega onClick para navegar */}
                         </li>
                     </ul>
                 </div>

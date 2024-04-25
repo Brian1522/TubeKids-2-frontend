@@ -1,12 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist'; // Importa persistReducer
-import storage from 'redux-persist/lib/storage';
-import authReducer from '../redux/authentication/authReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist"; // Importa persistReducer
+import storage from "redux-persist/lib/storage";
+import authReducer from "../redux/authentication/authReducer";
 import playListReducer from "../redux/playlists/playListReducer";
 
 // Configuración de persistencia para el reducer de autenticación
 const authPersistConfig = {
-  key: 'auth',
+  key: "auth",
   storage: storage,
 };
 

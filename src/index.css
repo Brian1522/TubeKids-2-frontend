@@ -591,3 +591,36 @@ p {
   font-size: 14px;
   color: #666;
 }
+
+.video-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.video-item h3 {
+  margin-bottom: 10px;
+}
+
+.video-options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.video-options button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.video-options button i {
+  font-size: 1.5rem;
+}

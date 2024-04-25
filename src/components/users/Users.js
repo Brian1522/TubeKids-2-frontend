@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+
 const Users = () => {
   const [showForm, setShowForm] = useState(false);
   const [user, setUser] = useState({
@@ -38,14 +39,14 @@ const Users = () => {
 
   // Arreglo de prueba para simular la lista de usuarios
   const users = [
-    { id: 1, name: "Usuario 1", age: 25 },
-    { id: 2, name: "Usuario 2", age: 30 },
-    { id: 3, name: "Usuario 3", age: 28 },
+    { id: 1, name: "Alanna", age: 15 },
+    { id: 2, name: "Pedro", age: 11 },
+    { id: 3, name: "Sophia", age:  8 },
   ];
 
   return (
     <div>
-      <button
+         <button
         className="btn btn-primario"
         onClick={() => setShowForm(true)}
         style={{ marginBottom: "10px" }} // Añade un margen inferior al botón

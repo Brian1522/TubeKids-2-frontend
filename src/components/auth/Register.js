@@ -7,7 +7,7 @@ import { registerUser } from "../../redux/authentication/authActions";
 
 const Register = (props) => {
 
-    // extraer los valores del context
+    // extraer los valores del redux
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isAuthenticated = useSelector(state => state.authenticated);
@@ -71,16 +71,17 @@ const Register = (props) => {
             return;
         }
 
-        dispatch(registerUser({
-            name,
-            lastname,
-            email,
-            password,
-            cellphone,
-            role,
-            country,
-            pin
-        })
+        dispatch(
+            registerUser({
+                name,
+                lastname,
+                email,
+                password,
+                cellphone,
+                role,
+                country,
+                pin
+            })
         );
     };
 
